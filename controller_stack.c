@@ -30,85 +30,64 @@ void	stack_free(t_stack_node **stack)
 	*stack = NULL;
 }
 
-/*
- * Create the stack with the command line values
- * Checks are embedded in the creation itslef
- * 		~Duplicate values
- * 		~Over|Underflow
- * 		~Syntax errors
- *
- * 	 Flag is useful cause if true
- * Create the stack with the command line values
- * Checks are embedded in the creation itslef
- * 		~Duplicate values
- * 		~Over|Underflow
- * 		~Syntax errors, i have the argv in the HEAP to free
- *
-*/
-
-/*
-FUNCION DE OCEANO
-void	stack_create(t_stack_node **a, char **argv, bool flag_argc_2)
+t_stack_node	*get_last_node(t_stack_node *head)
 {
-	long	nbr;
-	int		i;
-
-	i = 0;
-	while (argv[i])
-	{
-		if (error_syntax(argv[i]))
-			error_free(a, argv, flag_argc_2);
-		nbr = ft_atol(argv[i]);
-		if (nbr > INT_MAX || nbr < INT_MIN)
-			error_free(a, argv, flag_argc_2);
-		if (error_repetition(*a, (int)nbr))
-			error_free(a, argv, flag_argc_2);
-		append_node(a, (int)nbr);
-		++i;
-	}
-	if (flag_argc_2)
-		free_matrix(argv);
-}
-*/
-
-
-/* CREAMOS el numero en las lista para el stack*/
-t_stack_node	*stack_new(int stack_val)
-{
-	t_stack_node	*new;
-
-	new = malloc(sizeof * new);
-	if (!new)
+	if (head == NULL)
 		return (NULL);
-	new->value = stack_val;
-	new->index = 0;
-	new->pos = -1;
-	new->target_pos = -1;
-	new->cost_a = -1;
-	new->cost_b = -1;
-	new->next = NULL;
-	return (new);
+	while (head->next)
+		head = head->next;
+	return (head);
 }
 
-t_stack_node	*stack_create(int ac, char *argv[])
+void	stack_new(t_stack_node **stack_a, int stack_val)
+{
+	t_stack_node	*new_node;
+	t_stack_node	*last_node;
+
+	if (stack_a == NULL)
+		return (NULL);
+	new_node = malloc(sizeof(t_stack_node));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->value = stack_val;
+	new_node->next = NULL;
+	if (*stack_a == NULL)
+	{
+		*stack_a = new_node;
+		new_node->prev = NULL;
+	}
+	else
+	{
+		last_node = get_last_node(*stack_a);
+		last_node->next = new_node;
+		new_node->prev = last_node;
+	}
+
+}
+
+t_stack_node	*stack_create(t_stack_node **stack_a, int ac, char *argv[])
 {
 	int			i;
-	t_stack_node		*stack_a;
-	long int	nb;
+	long int	number;
 
-	stack_a = NULL;
-	nb = 0;
+	number = 0;
 	i = 1;
 	while (i < ac)
 	{
-		nb = ft_atoi(argv[i]);
-		if (nb > INT_MAX || nb < INT_MIN)
+		number = ft_atoi(argv[i]);
+		if (number > INT_MAX || number < INT_MIN)
 			error_exit(&stack_a, NULL);
-		if (i == 1)
-			stack_a = stack_new((int)nb);
-		else
-			stack_add_bottom(&stack_a, stack_new((int)nb));
+		stack_a = stack_new(stack_a, (int)number);
 		i++;
+
+/*
+		if (i == 1)
+			stack_a = stack_new(stack_a, (int)number);
+		else
+			stack_add_bottom(&stack_a, stack_new((int)number));
+		i++;
+*/
+
 	}
 	return (stack_a);
 }
