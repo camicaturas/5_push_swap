@@ -6,15 +6,39 @@
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/02/12 10:55:30 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:46:22 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
-#include <stdlib.h>
-#include <stdio.h>
+/*
+t_stack_node	*get_stack_bottom(t_stack_node *stack)
+{
+	while (stack && stack->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
 
+t_stack_node	*get_stack_before_bottom(t_stack_node *stack)
+{
+	while (stack && stack->next && stack->next->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
+*/
+t_stack_node	*get_stack_last(t_stack_node *stack)
+{
+	while (stack && stack->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
+
+t_stack_node	*get_stack_second_to_last(t_stack_node *stack)
+{
+	while (stack && stack->next && stack->next->next != NULL)
+		stack = stack->next;
+	return (stack);
+}
 
 void	ft_putstr(char *str)
 {
@@ -28,37 +52,36 @@ void	ft_putstr(char *str)
 	}
 }
 
-long int	ft_atoi(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	int	sign;
 	int	i;
-	long int	number;
 
-	sign = 1;
 	i = 0;
-	number = 0;
-	while (((str[i] >= 9 && str[i] <= 13) || str[i] == 32) && str[i])
+	while (str[i] != '\0')
 		i++;
-	if (str[i] == '-')
-	{
-		sign *= -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-	while ((str[i] >= '0') && (str[i] <= '9'))
-	{
-		number = number * 10 + (str[i] - '0');
-		i++;
-	}
-	return (number * sign);
+	return (i);
 }
 
-t_stack_node	*get_last_node(t_stack_node *head)
+long int	ft_atoi(const char *str)
 {
-	if (head == NULL)
-		return (NULL);
-	while (head->next)
-		head = head->next;
-	return (head);
+	long int	nb;
+	int			isneg;
+	int			i;
+
+	nb = 0;
+	isneg = 1;
+	i = 0;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
+	{
+		isneg *= -1;
+		i++;
+	}
+	while (is_digit(str[i]))
+	{
+		nb = (nb * 10) + (str[i] - '0');
+		i++;
+	}
+	return (nb * isneg);
 }

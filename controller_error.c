@@ -6,42 +6,33 @@
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/02/02 18:12:56 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:05:06 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
-#include <stdlib.h>
-#include <stdio.h>
 
-/*
-int	error_syntax(char *str_nbr)
+void	free_stack(t_stack_node **stack)
 {
-	if (!(*str_nbr == '+'
-			|| *str_nbr == '-'
-			|| (*str_nbr >= '0' && *str_nbr <= '9')))
-		return (1);
-	if ((*str_nbr == '+'
-			|| *str_nbr == '-')
-		&& !(str_nbr[1] >= '0' && str_nbr[1] <= '9'))
-		return (1);
-	while (*++str_nbr)stack_create
+	t_stack_node	*tmp;
+
+	if (!stack || !(*stack))
+		return ;
+	while (*stack)
 	{
-		if (!(*str_nbr >= '0' && *str_nbr <= '9'))
-			return (1);
+		tmp = (*stack)->next;
+		free(*stack);
+		*stack = tmp;
 	}
-	return (0);
+	*stack = NULL;
 }
-*/
 
-void	error_exit(t_stack_node **stack_a, t_stack_node **stack_b)
+void	exit_error(t_stack_node **stack_a, t_stack_node **stack_b)
 {
-	if (*stack_a != NULL || stack_a == NULL)
-		stack_free(stack_a);
-	if (*stack_b != NULL || stack_b == NULL)
-		stack_free(stack_b);
-	write(2, "Error!\n", 7);
+	if (stack_a == NULL || *stack_a != NULL)
+		free_stack(stack_a);
+	if (stack_b == NULL || *stack_b != NULL)
+		free_stack(stack_b);
+	ft_putstr("Error\n");
 	exit (1);
 }
-

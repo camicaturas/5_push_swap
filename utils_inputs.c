@@ -1,41 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_inputs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/03/12 14:55:10 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:15:35 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char *argv[])
+int	nbstr_cmp(const char *s1, const char *s2)
 {
-	t_stack_node	*stack_a;
-	t_stack_node	*stack_b;
-	int				stack_len;
+	int	i;
+	int	j;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc < 2)
-		return (0);
-	if (!input_check(argv))
-		exit_error(&stack_a, &stack_b);
-	stack_a = stack_create(argc, argv);
-	if (!stack_is_sorted(stack_a))
+	i = 0;
+	j = i;
+	if (s1[i] == '+')
 	{
-		stack_len = stack_size(stack_a);
-		if (stack_len == 2)
-			sa(&stack_a);
-		else if (stack_len == 3)
-			sort_three(&stack_a);
-		else
-			push_swap(&stack_a, &stack_b);
+		if (s2[j] != '+')
+			i++;
 	}
-	stack_free(&stack_a);
-	stack_free(&stack_b);
-	return (0);
+	else
+	{
+		if (s2[j] == '+')
+			j++;
+	}
+	while (s1[i] != '\0' && s2[j] != '\0' && s1[i] == s2[j])
+	{
+		i++;
+		j++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[j]);
+}
+
+int	is_sign(char c)
+{
+	return (c == '+' || c == '-');
+}
+
+int	is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
 }

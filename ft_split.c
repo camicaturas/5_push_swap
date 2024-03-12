@@ -6,11 +6,52 @@
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 11:32:44 by cberneri          #+#    #+#             */
-/*   Updated: 2023/09/20 19:20:19 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:54:24 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	unsigned int	i;
+
+	if (size == 0)
+		return (ft_strlen(src));
+	i = 0;
+	while (src[i] != '\0' && i < (size - 1))
+	{
+		dst[i] = src[i];
+		++i;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*newstr;
+	size_t	slen;
+
+	if (!s)
+		return (NULL);
+	slen = ft_strlen(s);
+	if (start >= slen)
+	{
+		newstr = (char *)malloc(1);
+		if (!newstr)
+			return (NULL);
+		newstr[0] = '\0';
+		return (newstr);
+	}
+	if (len > slen - start)
+		len = slen - start;
+	newstr = (char *)malloc(len + 1);
+	if (!newstr)
+		return (NULL);
+	ft_strlcpy(newstr, s + start, len + 1);
+	return (newstr);
+}
 
 size_t	ft_wordlen(char const *s, char c, int i)
 {

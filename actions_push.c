@@ -1,46 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions_swap.c                                     :+:      :+:    :+:   */
+/*   actions_push.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/03/05 14:13:26 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:12:51 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swap(t_stack_node *head)
+static void	push(t_stack_node **dest, t_stack_node **src)
 {
-	int	temp;
+	t_stack_node	*node_to_push;
 
-	if (head == NULL || head->next == NULL)
+	if (*src == NULL)
 		return ;
-	temp = head->value;
-	head->value = head->next->value;
-	head->next->value = temp;
-	temp = head->index;
-	head->index = head->next->index;
-	head->next->index = temp;
+	node_to_push = *src;
+	*src = (*src)->next;
+	if (*src)
+		(*src)->prev = NULL;
+	node_to_push->prev = NULL;
+	if (*dest == NULL)
+	{
+		*dest = node_to_push;
+		node_to_push->next = NULL;
+	}
+	else
+	{
+		node_to_push->next = *dest;
+		node_to_push->next->prev = node_to_push;
+		*dest = node_to_push;
+	}
 }
 
-void	sa(t_stack_node	**stack_a)
+void	pa(t_stack_node **stack_a, t_stack_node **stack_b)
 {
-	swap(*stack_a);
-	ft_putstr("sa\n");
+	push(stack_a, stack_b);
+	ft_putstr("pa\n");
 }
 
-void	sb(t_stack_node	**stack_b)
+void	pb(t_stack_node **stack_b, t_stack_node **stack_a)
 {
-	swap(*stack_b);
-	ft_putstr("sb\n");
-}
-
-void	ss(t_stack_node **stack_a, t_stack_node **stack_b)
-{
-	swap(*stack_a);
-	swap(*stack_b);
-	ft_putstr("ss\n");
+	push(stack_b, stack_a);
+	ft_putstr("pb\n");
 }
