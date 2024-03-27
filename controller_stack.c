@@ -6,7 +6,7 @@
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/03/12 12:03:28 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/19 13:14:41 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_stack_node	*stack_new_node(int stack_val)
 	new_node->index = 0;
 	new_node->position = -1;
 	new_node->push_price = -1;
-	new_node->above_median = true;
-	new_node->cheapest = true;
+	new_node->above_median = false;
+	new_node->cheapest = false;
 	new_node->target_node = NULL;
 	new_node->next = NULL;
 	new_node->prev = NULL;

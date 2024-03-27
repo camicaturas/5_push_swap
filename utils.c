@@ -6,26 +6,12 @@
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/03/05 10:46:22 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:25:19 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-t_stack_node	*get_stack_bottom(t_stack_node *stack)
-{
-	while (stack && stack->next != NULL)
-		stack = stack->next;
-	return (stack);
-}
 
-t_stack_node	*get_stack_before_bottom(t_stack_node *stack)
-{
-	while (stack && stack->next && stack->next->next != NULL)
-		stack = stack->next;
-	return (stack);
-}
-*/
 t_stack_node	*get_stack_last(t_stack_node *stack)
 {
 	while (stack && stack->next != NULL)

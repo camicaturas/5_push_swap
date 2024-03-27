@@ -6,7 +6,7 @@
 /*   By: cberneri < cberneri@student.42prague.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:14:37 by cberneri          #+#    #+#             */
-/*   Updated: 2024/03/05 15:13:41 by cberneri         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:28:02 by cberneri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ static void	reverse_rotate_both(t_stack_node **stack_a,
 	set_position(*stack_b);
 }
 
-/*
- * Conclude the rotation of the stacks 
-*/
 void	finish_rotation(t_stack_node **stack,
 							t_stack_node *top_node,
 							char stack_name)
